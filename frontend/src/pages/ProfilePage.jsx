@@ -8,7 +8,9 @@ const ProfilePage = () => {
 
   const handleImageUpload = async (e) => {
     const file=e.target.files[0];
+    console.log(file);
     if(!file) return ;
+    console.log("YES");
     const reader=new FileReader();
     reader.readAsDataURL(file);
     reader.onload=async()=>{
