@@ -1,23 +1,24 @@
-import {React, useState} from "react";
-import {useAuthStore} from "../store/useAuthStore.js";
-import {Camera, Mail, User} from 'lucide-react';
+import { useState } from "react";
+import { useAuthStore } from "../store/useAuthStore";
+import { Camera, Mail, User } from "lucide-react";
 
 const ProfilePage = () => {
   const { authUser, isUpdatingProfile, updateProfile } = useAuthStore();
-  const [selectedImg,setSelectedImg]=useState(null);
+  const [selectedImg, setSelectedImg] = useState(null);
 
   const handleImageUpload = async (e) => {
-    const file=e.target.files[0];
-    console.log(file);
-    if(!file) return ;
-    console.log("YES");
-    const reader=new FileReader();
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
     reader.readAsDataURL(file);
-    reader.onload=async()=>{
-      const base64Image=reader.result;
+
+    reader.onload = async () => {
+      const base64Image = reader.result;
       setSelectedImg(base64Image);
-      await updateProfile({profilePic:base64Image})
-    }
+      await updateProfile({ profilePic: base64Image });
+    };
   };
 
   return (
@@ -62,9 +63,9 @@ const ProfilePage = () => {
             <p className="text-sm text-zinc-400">
               {isUpdatingProfile ? "Uploading..." : "Click the camera icon to update your photo"}
             </p>
-        </div>
+          </div>
 
-        <div className="space-y-6">
+          <div className="space-y-6">
             <div className="space-y-1.5">
               <div className="text-sm text-zinc-400 flex items-center gap-2">
                 <User className="w-4 h-4" />
@@ -95,11 +96,9 @@ const ProfilePage = () => {
               </div>
             </div>
           </div>
-
+        </div>
       </div>
-    </div>
     </div>
   );
 };
-
 export default ProfilePage;
